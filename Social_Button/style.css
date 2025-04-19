@@ -1,0 +1,49 @@
+* {
+   margin:0;
+   padding:0;
+   box-sizing: border-box;
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   background-color: black;
+   color:#FFF;
+}
+
+.card {
+   width:90%;
+   height: 90vh;
+   display: flex;
+   gap:25px;
+   justify-content: center;
+   align-items: center;
+   .sosmed {
+      background-color: salmon;
+      width:25px;
+      height: 25px;
+      border-radius: 50%;
+      padding:15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap:5px;
+      cursor: pointer;
+      transition: width 3s ease;
+      span {
+         display:none;
+      }
+   }
+
+   .sosmed:hover {
+      width: auto;
+      border-radius: 9999px;
+      span {
+         display: block;
+      }
+   }
+}
