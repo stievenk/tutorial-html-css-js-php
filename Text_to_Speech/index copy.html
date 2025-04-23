@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text to Speech Sederhana</title>
+</head>
+<body>
+  <h1>Coba Text to Speech</h1>
+  <textarea id="teksYangAkanDiucapkan" placeholder="Masukkan teks di sini"></textarea>
+  <button onclick="ucapkanTeksDariInput()">Ucapkan!</button>
+
+  <script>
+    function ucapkanTeks(teks) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(teks);
+        speechSynthesis.speak(utterance);
+      } else {
+        console.error('Web Speech API tidak didukung di browser ini.');
+      }
+    }
+
+    function ucapkanTeksDariInput() {
+      const teksInput = document.getElementById('teksYangAkanDiucapkan').value;
+      ucapkanTeksBahasaIndonesia(teksInput);
+    }
+    
+
+    function ucapkanTeksBahasaIndonesia(teks) {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(teks);
+    utterance.lang = 'id-ID';
+
+    function cariDanSetSuara() {
+      const voices = window.speechSynthesis.getVoices();
+      const indonesiaVoice = voices.find(voice => voice.lang === 'id-ID');
+      if (indonesiaVoice) {
+        utterance.voice = indonesiaVoice;
+        speechSynthesis.speak(utterance);
+      } else {
+        console.warn('Suara bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
+        speechSynthesis.speak(utterance); // Tetap ucapkan dengan suara default
+      }
+    }
+
+    // Coba cari dan set suara saat awal
+    cariDanSetSuara();
+
+    // Tambahkan event listener untuk menangani perubahan daftar suara
+    speechSynthesis.onvoiceschanged = cariDanSetSuara;
+
+  } else {
+    console.error('Web Speech API tidak didukung di browser ini.');
+  }
+}
+  </script>
+</body>
+</html>
