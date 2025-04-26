@@ -9,12 +9,18 @@
 <body>
     Select Voice: <select id='voiceList'></select> <br><br>
 
-    <textarea style="width:100%" rows="5" id='txtInput'>Selamat pagi, kami senang anda sudah mencobanya</textarea> <br><br>    
+    <textarea style="width:100%" rows="5" id='txtInput'>Nomor antrian . 12345</textarea> <br><br>    
     <button id='btnSpeak'>Speak!</button>
+    <button id='btnStop'>Stop</button>
+    <button id='btnPause'>Pause</button>
+    <button id='btnResume'>Resume</button>
 
     <script>
       var txtInput = document.querySelector('#txtInput');
       var btnSpeak = document.querySelector('#btnSpeak');
+      var btnStop = document.querySelector('#btnStop');
+      var btnPause = document.querySelector('#btnPause');
+      var btnResume = document.querySelector('#btnResume');
       var voiceList = document.querySelector('#voiceList');
       var synth = window.speechSynthesis;
       var voices = [];
@@ -50,7 +56,7 @@
       }
 
       btnSpeak.addEventListener('click', ()=> {
-         var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
+         const toSpeak = new SpeechSynthesisUtterance(txtInput.value);
          var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
          voices.forEach((voice)=>{
                if(voice.name === selectedVoiceName){
@@ -63,6 +69,10 @@
          toSpeak.rate = 1;
          synth.speak(toSpeak);
       });
+
+      btnStop.addEventListener('click', ()=> { synth.stop(); });
+      btnPause.addEventListener('click', ()=> { synth.pause(); });
+      btnResume.addEventListener('click', ()=> { synth.resume(); });
     </script>
 </body>
 </html>
